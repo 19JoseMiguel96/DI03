@@ -6,13 +6,16 @@ package componenterelojdigital;
  * and open the template in the editor.
  */
 
+
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.*;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.EventListener;
+import java.util.EventObject;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -96,7 +99,6 @@ public class RelojDigital extends JLabel implements ActionListener,Serializable 
     
   public void actionPerformed(ActionEvent e) {
     propertySupport = new PropertyChangeSupport(this);
-    alarma  = new AlarmaBean();
     Date d = new Date(); 
     //Si formato es true, será formato tipo 24H.
     if(formato==true){
@@ -108,6 +110,47 @@ public class RelojDigital extends JLabel implements ActionListener,Serializable 
         reloj = new SimpleDateFormat("hh:mm");
         super.setText(reloj.format(d));        
     }
-    //JOptionPane.showMessageDialog(null, "Alarma!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+    
   }
+  
 }
+/**
+ * 
+SonarAlarmaListener miReceptor;
+public void addSonarAlarmaListener( SonarAlarmaListener receptor ) {
+    // No se permite que intente incorporar mas de un receptor
+    if( miReceptor == null ) 
+        miReceptor = receptor;
+    else {
+        System.out.println( "No se soportan multiples Receptores" );
+        // Se sale, si se intentan registrar varios objetos Receptor
+        System.exit( 0 );
+        }
+    }
+  public void generarMiEvento() {
+    miReceptor.capturarSonarAlarma( new SonarAlarmaEvent( this,alarma ) );
+    }
+
+    @Override
+    public void capturarSonarAlarma(SonarAlarmaEvent ev) {
+        //JOptionPane.showMessageDialog(null, "Alarma!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        
+    }
+  
+    public class SonarAlarmaEvent extends EventObject {
+        public AlarmaBean alarma;
+
+        public SonarAlarmaEvent(Object source, AlarmaBean alarma) {
+            super (source);
+            this.alarma = alarma;
+        }
+    }
+interface SonarAlarmaListener extends EventListener {
+    void capturarSonarAlarma (SonarAlarmaEvent ev);
+}
+*/
+
+
+
+    
+
