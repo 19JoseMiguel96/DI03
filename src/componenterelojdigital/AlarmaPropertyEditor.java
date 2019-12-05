@@ -7,8 +7,6 @@ package componenterelojdigital;
 
 import java.awt.Component;
 import java.beans.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * AddressBean property editor. This can be used as a property editor for properties using this bean.
@@ -38,17 +36,18 @@ public class AlarmaPropertyEditor extends PropertyEditorSupport {
         if(super.getValue()==null){
             setValue(null);
         }
-        Alarma ret = (Alarma) super.getValue();
-        ret.setHora(editor.hora.getText());
+        AlarmaBean ret = (AlarmaBean) super.getValue();
+        ret.setHora(editor.hora.getValue().toString());
+        ret.setMinutos(editor.minutos.getValue().toString());
         return ret;
     }
 
     @Override
-    public void setValue(Object hora) {
-        if(hora==null){
-            hora = new Alarma();
+    public void setValue(Object alarma) {
+        if(alarma==null){
+            alarma = new AlarmaBean();
         }
-        super.setValue(hora);
+        super.setValue(alarma);
 
     }
 
@@ -69,11 +68,13 @@ public class AlarmaPropertyEditor extends PropertyEditorSupport {
     
     @Override
     public String getJavaInitializationString() {
-        Alarma bean = (Alarma) getValue();
+        AlarmaBean bean = (AlarmaBean) getValue();
         StringBuffer ret = new StringBuffer();
-        ret.append(Alarma.class.getName());
+        ret.append(AlarmaBean.class.getName());
         ret.append(".createAlarmaBean(\"");
         ret.append(bean.getHora());
+        ret.append(":");
+        ret.append(bean.getMinutos());
         ret.append("\")");
         return ret.toString();
     }

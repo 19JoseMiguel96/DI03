@@ -13,9 +13,8 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 /*
  *
@@ -28,7 +27,7 @@ public class RelojDigital extends JLabel implements ActionListener,Serializable 
  */ 
     protected SimpleDateFormat reloj;
     private boolean formato;    
-    private Alarma hora=null;
+    private AlarmaBean alarma;
     private Timer t;
     private PropertyChangeSupport propertySupport;
     
@@ -76,38 +75,39 @@ public class RelojDigital extends JLabel implements ActionListener,Serializable 
         this.reloj = reloj;
     }    
     /**
-     * Get the value of hora
+     * Get the value of alarma
      *
-     * @return the value of hora
+     * @return the value of alarma
      */
-    public Alarma getHora() {
-        return hora;
+    public AlarmaBean getAlarma() {
+        return alarma;
     }
 
     /**
-     * Set the value of hora
+     * Set the value of alarma
      *
-     * @param hora new value of hora
+     * @param alarma new value of alarma
      */
-    public void setHora(Alarma hora) {
-        Alarma old = this.hora;
-        this.hora = hora;
-        propertySupport.firePropertyChange("hora", old, hora);
+    public void setAlarma(AlarmaBean alarma) {
+        AlarmaBean old = this.alarma;
+        this.alarma = alarma;
+        propertySupport.firePropertyChange("alarma", old, alarma);
     }
     
   public void actionPerformed(ActionEvent e) {
     propertySupport = new PropertyChangeSupport(this);
-    PanelAlarma a = new PanelAlarma();
+    alarma  = new AlarmaBean();
     Date d = new Date(); 
     //Si formato es true, será formato tipo 24H.
     if(formato==true){
         reloj = new SimpleDateFormat("HH:mm");
-        super.setText(reloj.format(d));        
+        super.setText(reloj.format(d));         
     }
     //Si formato es false, será formato tipo 12h.
     else if (formato == false){
         reloj = new SimpleDateFormat("hh:mm");
         super.setText(reloj.format(d));        
-    }       
+    }
+    //JOptionPane.showMessageDialog(null, "Alarma!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
   }
 }

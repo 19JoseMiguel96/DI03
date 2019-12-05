@@ -14,13 +14,17 @@ import java.util.Date;
  *
  * @author Jose Miguel
  */
-public class Alarma implements Serializable {
+public class AlarmaBean implements Serializable {
+
+   
     
-    private String hora;
+    public String hora;
+    private String minutos;
     private PropertyChangeSupport propertySupport;
     
     
-    public Alarma() {
+    
+    public AlarmaBean() {
         propertySupport = new PropertyChangeSupport(this);
     }
     
@@ -49,15 +53,36 @@ public class Alarma implements Serializable {
         String old = this.hora;
         this.hora = hora;
         this.propertySupport.firePropertyChange("hora", old, hora);
-    }       
-    public static Alarma createAlarmaBean(String hora){
-        Alarma ret = new Alarma();
-        ret.hora = hora;
+    }
+        /**
+     * Get the value of hora
+     *
+     * @return the value of hora
+     */
+    public String getMinutos() {
+        return minutos;
+    }
+    /**
+     * Set the value of hora
+     *
+     * @param hora new value of hora
+     */
+    public void setMinutos(String minutos) {
+        String old = this.minutos;
+        this.minutos = minutos;
+        this.propertySupport.firePropertyChange("minutos", old, minutos);
+    }
+    public static AlarmaBean createAlarmaBean(String alarma){
+        AlarmaBean ret = new AlarmaBean();
+        ret.hora = alarma;
+        ret.minutos = alarma;
         return ret;
     }
     public String toString(){
         StringBuffer sb = new StringBuffer();
         sb.append(hora);
+        sb.append(":");
+        sb.append(minutos);
         return sb.toString();
     }
     
